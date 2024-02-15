@@ -20,6 +20,14 @@ style: |
 
 # Practical Functional Programming
 
+<script type="module">
+  import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+  mermaid.initialize({
+    startOnLoad: true,
+    theme: 'dark'
+  });
+</script>
+
 By: Jiahao
 
 Presented at: NUS Hackers Hackerschool
@@ -140,15 +148,15 @@ quicksort2Helper (pivotIndex + 1) end stArr
 
 # A (somewhat) formal definition...
 
-_Programming paradigm_ that involves _composing programs from functions_ and treating these
-functions as _first-class citizens_ in the language
+> _Programming paradigm_ that involves _composing programs from functions_ and treating these
+> functions as _first-class citizens_ in the language
 
 ---
 
 # So, what is FP?
 
-Functional programming is an _alternative way of thinking_ and solving problems by using
-_functions as the fundamental building blocks_
+> Functional programming is an _alternative way of thinking_ and solving problems by using
+> _functions as the fundamental building blocks_
 
 ---
 
@@ -1087,7 +1095,145 @@ mix phx.server
 
 ---
 
-# Hands-on Time!!
+# Directory structure
+
+```
+.
+├── .formatter.exs
+├── .gitignore
+├── README.md
+├── _build
+├── assets
+│   ├── css
+│   ├── js
+├── config
+├── lib
+│   ├── practical_elixir_demo/
+│   ├── practical_elixir_demo_web/
+├── mix.exs
+├── mix.lock
+├── practical_elixir_demo_dev.db
+├── priv
+└── test
+```
+
+---
+
+# Request lifecycle
+
+<div class="mermaid">
+sequenceDiagram
+    actor User
+    participant Client
+    participant Server
+    participant Database
+    User ->> Client : perform action
+    Client ->> Server : HTTP request
+    Server ->> Database : fetch information
+    Database -->> Server : information
+    Server -->> Client : HTTP response
+    Client -->> User : render result of action
+</div>
+
+---
+
+# Basic HTTP
+
+<div class="even-two-column" style="align-items: center;">
+    <div style="text-align: right; margin-right: 1em;">
+        <p>GET</p>
+        <p>POST</p>
+        <p>PUT</p>
+        <p>DELETE</p>
+    </div>
+    <p style="text-align: left; margin-left: 1em;">/endpoint</p>
+</div>
+
+---
+
+# Structs in Elixir
+
+```elixir
+defmodule PracticalElixirDemo.Todo.TodoItem do
+  @derive Jason.Encoder
+  defstruct [:title, description: nil, is_done?: false]
+end
+```
+
+---
+
+# Anatomy of a router
+
+1. `use`
+2. Pipelines
+3. Scopes
+4. Declaring routes
+
+---
+
+# Creating new endpoint
+
+1. Add route to scope in `router.ex`
+2. Add controller action in respective controller file
+
+---
+
+# Creating new page
+
+1. Add route to scope in `router.ex`
+2. Add controller action to render view
+3. Add template file to render page with content
+
+---
+
+> "But I don't want to use JavaScript!"
+> \- Presumably you
+
+---
+
+# LiveView lifecycle
+
+<div class="mermaid">
+%%{ init: { 'themeVariables': { 'fontSize': '8px' }, 'flowchart': { 'nodeSpacing': 4, 'rankSpacing': 25 } } }%%
+flowchart TD
+    HTTP_Request["HTTP Request"]
+    initial["Initial Setup"]
+    LiveView_Connects["LiveView Connects (Stateful views are spawned)"]
+    mount_connected["mount/3 Callback (Connected)"]
+    handle_params_connected["handle_params/3 Callback (Connected)"]
+    render_connected["render/1 Callback (Connected)"]
+    Continuous_Connection["Continuous Connection"]
+    handle_event["Callbacks"]
+    Reconnect["Reconnect"]
+    HTTP_Request --> initial
+    initial --> LiveView_Connects
+    LiveView_Connects --> mount_connected
+    mount_connected --> handle_params_connected
+    handle_params_connected --> render_connected
+    render_connected --> Continuous_Connection
+    Continuous_Connection --> handle_event
+    handle_event --> render_connected
+    Continuous_Connection -- "If crash or connection drop" --> Reconnect
+    Reconnect --> mount_connected
+    Continuous_Connection -- "Patch" --> handle_params_connected
+    classDef orange fill:#f66,stroke:#333;color:#fff
+    class mount_connected orange;
+    class Continuous_Connection orange;
+    class handle_event orange;
+</div>
+
+---
+
+# Migrating to LiveView
+
+For this workshop:
+
+```bash
+git fetch
+git switch liveview-base
+```
+
+Full steps in guide
 
 ---
 
@@ -1096,4 +1242,6 @@ mix phx.server
 ---
 
 # Feedback
+
+![width:400px](images/feedback.jpg)
 
