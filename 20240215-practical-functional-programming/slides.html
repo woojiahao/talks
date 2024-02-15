@@ -2811,37 +2811,41 @@ sequenceDiagram
   gap: 0.3rem;
 }
 ;">
-<h1 id="liveview-lifecycle">LiveView lifecycle</h1>
-<div class="mermaid">
-%%{ init: { 'themeVariables': { 'fontSize': '8px' }, 'flowchart': { 'nodeSpacing': 4, 'rankSpacing': 25 } } }%%
-flowchart TD
-    HTTP_Request["HTTP Request"]
-    initial["Initial Setup"]
-    LiveView_Connects["LiveView Connects (Stateful views are spawned)"]
-    mount_connected["mount/3 Callback (Connected)"]
-    handle_params_connected["handle_params/3 Callback (Connected)"]
-    render_connected["render/1 Callback (Connected)"]
-    Continuous_Connection["Continuous Connection"]
-    handle_event["Callbacks"]
-    Reconnect["Reconnect"]
-    HTTP_Request --&gt; initial
-    initial --&gt; LiveView_Connects
-    LiveView_Connects --&gt; mount_connected
-    mount_connected --&gt; handle_params_connected
-    handle_params_connected --&gt; render_connected
-    render_connected --&gt; Continuous_Connection
-    Continuous_Connection --&gt; handle_event
-    handle_event --&gt; render_connected
-    Continuous_Connection -- "If crash or connection drop" --&gt; Reconnect
-    Reconnect --&gt; mount_connected
-    Continuous_Connection -- "Patch" --&gt; handle_params_connected
-    classDef orange fill:#f66,stroke:#333;color:#fff
-    class mount_connected orange;
-    class Continuous_Connection orange;
-    class handle_event orange;
-</div>
+<h1 id="about-liveview">About LiveView</h1>
+<p>Flips traditional request lifecycle on its head</p>
+<p>After initial HTTP request, establishes persistent connection between client and server</p>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="86" data-class="invert modern" data-theme="uncover" data-style=".left-heavy-two-column {
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  gap: 1rem;
+}
+
+.even-two-column {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.3rem;
+}
+" lang="en-US" class="invert modern" style="--class:invert modern;--theme:uncover;--style:.left-heavy-two-column {
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  gap: 1rem;
+}
+
+.even-two-column {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.3rem;
+}
+;">
+<h1 id="important-functions">Important functions</h1>
+<ul>
+<li><code>live</code></li>
+<li><code>mount/3</code></li>
+<li><code>assign/2</code></li>
+</ul>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="87" data-class="invert modern" data-theme="uncover" data-style=".left-heavy-two-column {
   display: grid;
   grid-template-columns: 1fr 3fr;
   gap: 1rem;
@@ -2871,7 +2875,7 @@ git switch liveview-base
 </code></pre>
 <p>Full steps in guide</p>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="87" data-class="invert modern" data-theme="uncover" data-style=".left-heavy-two-column {
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="88" data-class="invert modern" data-theme="uncover" data-style=".left-heavy-two-column {
   display: grid;
   grid-template-columns: 1fr 3fr;
   gap: 1rem;
@@ -2896,7 +2900,7 @@ git switch liveview-base
 ;">
 <h1 id="thank-you">Thank you!</h1>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="88" data-class="invert modern" data-theme="uncover" data-style=".left-heavy-two-column {
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="89" data-class="invert modern" data-theme="uncover" data-style=".left-heavy-two-column {
   display: grid;
   grid-template-columns: 1fr 3fr;
   gap: 1rem;

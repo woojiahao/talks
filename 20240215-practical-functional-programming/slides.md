@@ -1191,36 +1191,19 @@ end
 
 ---
 
-# LiveView lifecycle
+# About LiveView
 
-<div class="mermaid">
-%%{ init: { 'themeVariables': { 'fontSize': '8px' }, 'flowchart': { 'nodeSpacing': 4, 'rankSpacing': 25 } } }%%
-flowchart TD
-    HTTP_Request["HTTP Request"]
-    initial["Initial Setup"]
-    LiveView_Connects["LiveView Connects (Stateful views are spawned)"]
-    mount_connected["mount/3 Callback (Connected)"]
-    handle_params_connected["handle_params/3 Callback (Connected)"]
-    render_connected["render/1 Callback (Connected)"]
-    Continuous_Connection["Continuous Connection"]
-    handle_event["Callbacks"]
-    Reconnect["Reconnect"]
-    HTTP_Request --> initial
-    initial --> LiveView_Connects
-    LiveView_Connects --> mount_connected
-    mount_connected --> handle_params_connected
-    handle_params_connected --> render_connected
-    render_connected --> Continuous_Connection
-    Continuous_Connection --> handle_event
-    handle_event --> render_connected
-    Continuous_Connection -- "If crash or connection drop" --> Reconnect
-    Reconnect --> mount_connected
-    Continuous_Connection -- "Patch" --> handle_params_connected
-    classDef orange fill:#f66,stroke:#333;color:#fff
-    class mount_connected orange;
-    class Continuous_Connection orange;
-    class handle_event orange;
-</div>
+Flips traditional request lifecycle on its head
+
+After initial HTTP request, establishes persistent connection between client and server
+
+---
+
+# Important functions
+
+- `live`
+- `mount/3`
+- `assign/2`
 
 ---
 
