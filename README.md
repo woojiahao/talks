@@ -45,3 +45,9 @@ I also use Mermaid to generate diagrams. Add this to the top of markdown file:
 ```
 marp slides.md --html -o slides.pdf --allow-local-files
 ```
+
+## Previewing slides in watch mode
+
+```sh
+marp -w slides.md --html --allow-local-files
+```
